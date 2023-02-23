@@ -1,1 +1,393 @@
 @import "~bootstrap/dist/css/bootstrap.min.css";
+
+* {
+  box-sizing: border-box;
+}
+
+button,
+input[type="submit"],
+input[type="reset"] {
+  background: none;
+  color: inherit;
+  border: none;
+  padding: 0;
+  font: inherit;
+  cursor: pointer;
+  outline: inherit;
+}
+
+@font-face {
+  font-family: "clock-font";
+  src: url("https://s3-us-west-2.amazonaws.com/s.cdpn.io/1686745/digital-7%20(mono).ttf");
+}
+:root {
+  --watch-color: #555;
+  --display-color: #a3b2a3;
+  --inner-color: #333;
+  --circle-color: #aaa;
+  --circle-width: calc(100% - 10px);
+}
+
+body {
+  background-color: #ffcc99;
+}
+
+#curve {
+  background-color: transparent;
+}
+
+.app {
+  z-index: 10;
+}
+
+.st0 {
+  fill: #555555;
+  stroke: #555555;
+  stroke-miterlimit: 10;
+}
+
+#Camada_1 {
+  z-index: 1;
+  transform: rotate(-45deg);
+  height: 25px;
+  width: 60px;
+  position: absolute;
+  margin: auto;
+  border-radius: 5px;
+  top: 25px;
+  left: 15px;
+}
+#Camada_2 {
+  z-index: 1;
+  transform: rotate(45deg);
+  height: 25px;
+  width: 60px;
+  position: absolute;
+  margin: auto;
+  border-radius: 5px;
+  top: 25px;
+  right: 15px;
+}
+#Camada_3 {
+  z-index: 1;
+  position: absolute;
+  margin: auto;
+  border-radius: 5px;
+  top: -8px;
+  left: 0px;
+  right: 0px;
+  height: 21px;
+  width: 60px;
+}
+.st3 {
+  fill: #555555;
+  stroke: #555555;
+}
+
+.body {
+  position: absolute;
+  margin: auto;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  width: 300px;
+  height: 300px;
+  .chronometer-style {
+    font-size: 12px;
+    position: absolute;
+    margin: auto;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    height: 300px;
+    .start-text {
+      position: absolute;
+      margin: auto;
+      color: white;
+      top: 43px;
+      left: 40px;
+      transform: rotate(-45deg);
+    }
+    .stop-text {
+      position: absolute;
+      margin: auto;
+      color: white;
+      top: 43px;
+      right: 42px;
+      transform: rotate(45deg);
+    }
+    .reset-text {
+      position: absolute;
+      margin: auto;
+      color: white;
+      top: 10px;
+      text-align: center;
+      right: 0;
+      left: 0;
+    }
+    .chronometer-text {
+      position: absolute;
+      margin: auto;
+      color: white;
+      font-size: 20px;
+      top: 70px;
+      text-align: center;
+      right: 0;
+      left: 0;
+    }
+    .creator {
+      position: absolute;
+      margin: auto;
+      color: white;
+      height: 100%;
+      text-align: center;
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      cursor: pointer;
+
+      span {
+        line-height: 550px;
+        position: absolute;
+        margin: auto;
+        bottom: 40px;
+        left: 0;
+        right: 0;
+        top: 30px;
+        transform-origin: top center;
+      }
+      .char1 {
+        transform: rotate(13deg);
+      }
+
+      .char2 {
+        transform: rotate(11deg);
+      }
+
+      .char3 {
+        transform: rotate(9deg);
+      }
+
+      .char4 {
+        transform: rotate(7deg);
+      }
+
+      .char5 {
+        transform: rotate(5deg);
+      }
+
+      .char6 {
+        transform: rotate(3deg);
+      }
+
+      .char7 {
+        transform: rotate(1deg);
+      }
+
+      .char8 {
+        transform: rotate(-1deg);
+      }
+
+      .char9 {
+        transform: rotate(-3deg);
+      }
+
+      .char10 {
+        transform: rotate(-5deg);
+      }
+
+      .char11 {
+        transform: rotate(-7deg);
+      }
+
+      .char12 {
+        transform: rotate(-9deg);
+      }
+
+      .char13 {
+        transform: rotate(-11deg);
+      }
+
+      .char14 {
+        transform: rotate(-13deg);
+      }
+    }
+    .chronometer-bottom {
+      z-index: -1;
+      perspective: 1000px;
+      margin: auto;
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      .bottom {
+        margin: auto;
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: -20px;
+        width: 60%;
+        height: 180px;
+        background-color: var(--watch-color);
+        transform-origin: bottom;
+        transform: rotatex(-70deg);
+        border-bottom-left-radius: 150px;
+        border-bottom-right-radius: 150px;
+      }
+    }
+  }
+}
+
+.chrono-body {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -moz-flex;
+  display: -ms-flexbox;
+  display: flex;
+  justify-content: center;
+  z-index: initial;
+  background-color: var(--inner-color);
+  position: absolute;
+  margin: auto;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  width: 300px;
+  height: 300px;
+  border: 25px solid var(--watch-color);
+  border-radius: 50%;
+
+  .start-body,
+  .stop-body,
+  .stop,
+  .reset,
+  .display,
+  .units,
+  .min,
+  .sec,
+  .mil,
+  .reset-body {
+    position: absolute;
+    margin: auto;
+  }
+  .units {
+    color: white;
+    width: 100%;
+    height: 20px;
+    top: 98px;
+    bottom: 0;
+    .min {
+      left: 55px;
+    }
+    .sec {
+      left: 130px;
+    }
+    .mil {
+      font-size: 15px;
+      left: 180px;
+    }
+  }
+  .display {
+    background-color: var(--display-color);
+    top: 0;
+    bottom: 0;
+    font-family: "clock-font";
+    font-size: 65px;
+    height: 80px;
+    width: 220px;
+    padding-left: 20px;
+    padding-right: 20px;
+    border-radius: 10px;
+    border: 1px solid;
+    .numbers {
+      text-align: center;
+      height: auto;
+      position: absolute;
+      margin: auto;
+      height: 40px;
+      top: 0;
+      bottom: 0;
+      text-align: center;
+    }
+    .milli {
+      font-size: 30px;
+      padding-bottom: 5px;
+      margin-left: -20px;
+    }
+
+    .second {
+      margin-left: -7px;
+    }
+    .minute {
+      margin-right: -7px;
+    }
+  }
+
+  .btn-body {
+    width: 100%;
+  }
+
+  .start {
+    background-color: green;
+    width: calc(40px);
+    height: 30px;
+    transform: rotate(-45deg);
+    border-radius: 5px;
+  }
+  .stop {
+    background-color: red;
+    width: calc(40px);
+    height: 30px;
+    transform: rotate(45deg);
+    border-radius: 5px;
+  }
+  .reset {
+    background-color: blue;
+    width: 30px;
+    height: 30px;
+    border-radius: 12px;
+  }
+
+  .start-body {
+    z-index: 1;
+    left: -8px;
+    top: -10px;
+  }
+  .stop-body {
+    z-index: 1;
+    right: 32px;
+    top: -10px;
+  }
+  .reset-body {
+    width: 30px;
+    z-index: 1;
+    top: -50px;
+    right: 0;
+    left: 0;
+  }
+}
+
+.chrono-body:after {
+  content: "";
+  border: 5px solid var(--circle-color);
+  position: absolute;
+  top: 0;
+  width: var(--circle-width);
+  height: 50%;
+  border-radius: 400px 400px 0px 0px /400px 400px 15px 15px;
+  border-bottom-color: transparent;
+}
+
+.chrono-body:before {
+  content: "";
+  border: 5px solid var(--circle-color);
+  position: absolute;
+  top: calc(50% + 5px);
+  width: var(--circle-width);
+  height: 25%;
+  border-radius: 0px 0px 200px 200px;
+  border-top-color: transparent;
+}
